@@ -1,0 +1,10 @@
+<p-fileUpload #form
+  name="myfile[]"
+  mode="basic"
+  [auto]="true"
+  chooseLabel="Choose a JSON file"
+  customUpload="true"
+  accept="{{filetype}}"
+  maxFileSize="{{maxFileSize}}"
+  (uploadHandler)="upload($event)"
+></p-fileUpload>

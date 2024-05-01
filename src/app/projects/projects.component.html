@@ -1,0 +1,85 @@
+<div style="margin-bottom: 20px;">
+    <p-splitButton label="Add" (onClick)="profile.addProject()" [model]="addProjectItems"></p-splitButton>
+</div>
+<p-accordion [activeIndex]="0">
+    @for (project of profile.projects; track $index) {
+    <p-accordionTab header="{{project.name}}">
+        <div class="grid">
+            <div class="col-1">
+                Name
+            </div>
+            <div class="col-2">
+                <input type="text" pInputText size="50" [(ngModel)]="project.name" />
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-1">
+                Role
+            </div>
+            <div class="col-2">
+                <input type="text" pInputText size="50" [(ngModel)]="project.role" />
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-1">
+                Customer
+            </div>
+            <div class="col-2">
+                <input type="text" pInputText size="50" [(ngModel)]="project.customer" />
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-1">
+                From
+            </div>
+            <div class="col-2">
+                <p-calendar showIcon="true" dateFormat="yy-mm-dd" dataType="string" [(ngModel)]="project.fromDate" />
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-1">
+                To
+            </div>
+            <div class="col-2">
+                <p-calendar showIcon="true" dateFormat="yy-mm-dd" dataType="string" [(ngModel)]="project.toDate" />
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-1">
+                Skills
+            </div>
+            <div class="col-10">
+                <div class="grid" style="margin-bottom: 20px;">
+                    <div class="col-2">
+                        <p-button icon="pi pi-plus" (onClick)="project.addSkill('')"
+                            [style]="{'margin-right': '30px;'}" />
+                    </div>
+                    <div class="col-1">
+                        <p-button icon="pi pi-clone" (onClick)="skillsPopup.toggle($event)" />
+                        <p-overlayPanel #skillsPopup [style]="{'width': '600px'}">
+                            <ng-template pTemplate>
+                                @for (skill of skills; track index; let index=$index) {
+                                <p-button label="{{skills[index]}}" severity="secondary" class="skillButton"
+                                    (onClick)="project.addSkill(skill)" />
+                                }
+                            </ng-template>
+                        </p-overlayPanel>
+                    </div>
+                </div>
+                @for (skill of project.skills; track index; let index=$index) {
+                <div class="grid">
+                    <div class="col-2">
+                        <p-autoComplete [suggestions]="filteredSkills" [(ngModel)]="project.skills[index]"
+                            (completeMethod)="filterSkill($event)" />
+                    </div>
+                    <div class="col-1">
+                        <p-button icon="pi pi-times" severity="warning" [text]="true"
+                            (onClick)="project.removeSkill(index)" />
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </p-accordionTab>
+    }
+</p-accordion>

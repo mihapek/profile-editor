@@ -1,0 +1,34 @@
+<div class="grid">
+    <div class="col-5">
+        <div class="grid">
+            <div class="col-1">
+                Name
+            </div>
+            <div class="col-2">
+                <input type="text" pInputText [(ngModel)]="person.name" />
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-1">
+                Foto
+            </div>
+            <div class="col-2">
+                <input type="text" pInputText size="50" [(ngModel)]="person.foto" />
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-1">
+                Motto
+            </div>
+            <div class="col-2">
+                <input type="text" pInputText size="50" [(ngModel)]="person.motto" />
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <img src="{{person.foto}}" />
+    </div>
+</div>
+<p-card header="Additionals">
+    <app-others [object]="person" [editor]="false" />
+</p-card>

@@ -1,0 +1,17 @@
+<div style="margin-bottom: 10px;">
+  <language-selector />
+</div>
+<app-menu />
+<p-card header="Person">
+  <app-person [person]="profile.person" />
+</p-card>
+<p-card header="Projects">
+  <app-projects [profile]="profile" />
+</p-card>
+<p-card header="Others">
+  <app-others [object]="profile" [editor]="true" />
+</p-card>
+
+<p-toast position="top-center"></p-toast>
+
+<loading-indicator />

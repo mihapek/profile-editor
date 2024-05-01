@@ -1,0 +1,93 @@
+{
+  "person": {
+    "name": "Mark Stein",
+    "foto": "assets/images/avatar/Profile-Mark.png",
+    "motto": "Unus pro omnibus, omnes pro uno",
+    "others": [
+      {
+        "key": "Geburt",
+        "value": "1979 in Stachanov (CCCP)"
+      },
+      {
+        "key": "Status",
+        "value": "3 Kinder (18, 15 und 1)"
+      },
+      {
+        "key": "Sprachen",
+        "value": "Deutsch, Russisch, English"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "name": "SPA: Developer-Portfolio",
+      "role": "PO, Entwickler",
+      "customer": "open source project",
+      "description": "Single Page Application for overview of developer portfolio and smart aggregation of developer skills.",
+      "fromDate": "2019-03-01",
+      "toDate": "2019-04-30",
+      "skills": [
+        "Angular",
+        "Angular-Material",
+        "Travis-CI",
+        "VS-Code",
+        "Git",
+        "GitHub",
+        "npm",
+        "SCSS",
+        "Sass"
+      ]
+    },
+    {
+      "name": "Webbasiertes EDV-System für Stammdaten und Kundenverwaltung",
+      "role": "Entwickler",
+      "customer": "IBM",
+      "description": "Migration der EDV-Systeme für die Stammdaten- und Kundenverwaltung von legacy Fat-Clients auf moderne webbasierte Technologie.",
+      "fromDate": "2018-06-01",
+      "toDate": "",
+      "skills": [
+        "JSP",
+        "LDAP",
+        "Java",
+        "Eclipse",
+        "VS-Code",
+        "SVN",
+        "Jira",
+        "Ant",
+        "Maven",
+        "Git",
+        "Bitbucket"
+      ]
+    }
+  ],
+  "others": [
+    {
+      "key": "Ausbildung",
+      "value": "<ul><li>2006 - M.Sc. Informatik an der TU Braunschweig</li><li>2005 - Diplom Informatiker an der TU Braunschweig</li></ul>"
+    },
+    {
+      "key": "Hobby",
+      "value": "<ul><li>Brettspiele spielen und machen</li><li>Outdoor: Wandern, Laufen, Ski, Rugby</li><li>Software-Entwickeln: Apps, Websites, Arduino</li></ul>"
+    },
+    {
+      "key": "Schulungen",
+      "value": "<ul><li>2012-2013 : Liferay Portal für Großkonzerne, Qualität- und Effizienzsteigerung durch TDD</li></ul>"
+    },
+    {
+      "key": "Gebrauchsmuster",
+      "value": "<ul><li>Nr. 20 2018 003 380 - Verpackung von Lebensmitteln mit einer Vorrichtung zur Markierung des Datums beim Öffnen.</li><li>Nr. 20 2014 004 213.6 - Anzeige zur Visualisierung der verbleibenden Fahrzeit bzw. Fahrstrecke, die in einem Fahrzeug befestigt wird.</li></ul>"
+    },
+    {
+      "key": "Sportliche Tätigkeiten",
+      "value": "<ul><li>1996 − 1997 : Mitglied der deutschen Rugby Jugendnationalmannschaft.</li></ul>"
+    },
+    {
+      "key": "Kontakt",
+      "value": "Mark Stein - m.stein@mosst.de"
+    },
+    {
+      "key": "Impressum",
+      "value": "<a href='impressum.html' class='impressum'>Impressum</a>"
+    }
+  ]
+}

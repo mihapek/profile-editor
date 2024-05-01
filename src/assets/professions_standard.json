@@ -1,0 +1,46 @@
+{
+    "IT": [
+        "Software Developer",
+        "QA Manager",
+        "Systems Analyst",
+        "Database Administrator",
+        "Network Engineer"
+    ],
+    "Engineering": [
+        "Mechanical Engineer",
+        "Electrical Engineer",
+        "Civil Engineer",
+        "Aerospace Engineer"
+    ],
+    "Handcraft": [
+        "Plumber",
+        "Carpenter",
+        "Electrician",
+        "Welder",
+        "Mason"
+    ],
+    "Service": [
+        "Hairdresser",
+        "Massage Therapist",
+        "Barber",
+        "Esthetician"
+    ],
+    "Healthcare": [
+        "Registered Nurse",
+        "Physician",
+        "Physical Therapist",
+        "Dentist"
+    ],
+    "Finance": [
+        "Accountant",
+        "Financial Analyst",
+        "Investment Banker",
+        "Actuary"
+    ],
+    "Education": [
+        "Teacher",
+        "Professor",
+        "Educational Consultant",
+        "School Counselor"
+    ]
+}

@@ -1,0 +1,10 @@
+<p-menubar [model]="items" autoHide="true"></p-menubar>
+<p-dialog header="Custom profession" [(visible)]="customProfessionDialog">
+    <input type="text" pInputText #customProfession style="margin-right: 20px;"
+        (keydown.enter)="generateProfile(customProfession.value)" required="true" />
+    <p-button label="Generate" (click)="generateProfile(customProfession.value)"></p-button>
+</p-dialog>
+
+<p-dialog header="{{personDialogHeader}}" [(visible)]="personDialog" [style]="{width: '500px'}">
+    <p style="white-space: pre-line">{{personDialogContent}}</p>
+</p-dialog>
