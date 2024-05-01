@@ -1,0 +1,38 @@
+{
+    "Adventure Seekers": [
+        "Extreme Rock Climber",
+        "Skydiving Instructor",
+        "Underwater Photographer",
+        "Jungle Survival Expert"
+    ],
+    "Fantasy Enthusiasts": [
+        "Wizard Apprentice",
+        "Dragon Tamer",
+        "Elven Archer",
+        "Dungeon Master"
+    ],
+    "Culinary Wizards": [
+        "Master Pizza Taster",
+        "Chocolate Connoisseur",
+        "Ice Cream Sommelier",
+        "Sushi Samurai"
+    ],
+    "Space Explorers": [
+        "Galactic Cartographer",
+        "Alien Linguist",
+        "Zero Gravity Chef",
+        "Astro-Archaeologist"
+    ],
+    "Superheroes": [
+        "Invisibility Specialist",
+        "Time-Traveling Hero",
+        "Teleportation Expert",
+        "Mind Reader"
+    ],
+    "Fairy Tale Creators": [
+        "Enchanted Storyteller",
+        "Magical Creature Illustrator",
+        "Fairy Godparent",
+        "Unicorn Whisperer"
+    ]
+}
