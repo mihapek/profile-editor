@@ -2,7 +2,9 @@
 <p-dialog header="Custom profession" [(visible)]="customProfessionDialog">
     <input type="text" pInputText #customProfession style="margin-right: 20px;"
         (keydown.enter)="generateProfile(customProfession.value)" required="true" />
-    <p-button label="Generate" (click)="generateProfile(customProfession.value)"></p-button>
+    <p-footer>
+        <p-button label="Generate" (click)="generateProfile(customProfession.value)"></p-button>
+    </p-footer>
 </p-dialog>
 
 <p-dialog header="{{personDialogHeader}}" [(visible)]="personDialog" [style]="{width: '500px'}">

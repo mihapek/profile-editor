@@ -10,6 +10,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { ChatService } from '../chat.service';
 import { ProfileItem } from '../model/profile-item';
 import { plainToClass } from 'class-transformer';
+import { FocusOnShowDirective } from '../focusOnShowDerictive';
 
 @Component({
   selector: 'app-others',
@@ -20,7 +21,8 @@ import { plainToClass } from 'class-transformer';
     InputTextareaModule,
     EditorModule,
     SplitButtonModule,
-    FormsModule
+    FormsModule,
+    FocusOnShowDirective,
   ],
   templateUrl: './others.component.html',
   styleUrl: './others.component.css'
@@ -29,6 +31,8 @@ export class OthersComponent implements OnInit {
   @Input() object: HasOthers;
   @Input() editor: boolean;
   addOtherItems: MenuItem[];
+  showEditor: boolean;
+  setFocus: boolean;
 
   constructor(private chatService: ChatService, private messageService: MessageService) { }
 
@@ -42,11 +46,18 @@ export class OthersComponent implements OnInit {
     ]
   }
 
+  addOther(): void {
+    this.setFocus = true;
+    this.object.addOther();
+  }
+
   generateOther() {
+    this.setFocus = true;
     if (this.object.others.length != 0) {
-      this.chatService.getOther(this.object.others).subscribe(data => {
+      this.chatService.getOther(this.object.others)?.subscribe(data => {
         console.log(data);
-        const other = plainToClass(ProfileItem, JSON.parse(data));
+        let json = JSON.parse(data);
+        const other = new ProfileItem(json.key, json.value);
         this.object.addOther(other);
       });
     }
@@ -54,4 +65,9 @@ export class OthersComponent implements OnInit {
       this.messageService.add({ detail: 'You should have at least one item' });
     }
   }
+
+  switchEditor(): void {
+    this.showEditor = !this.showEditor;
+  }
+
 }

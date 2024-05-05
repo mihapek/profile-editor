@@ -52,6 +52,10 @@ export class MenuItems {
                 {
                     label: 'Poem',
                     command: () => { this.menu.generatePersonContent('poem') }
+                },
+                {
+                    label: 'Foto',
+                    command: () => { this.menu.generatePersonFoto() }
                 }
             ]
         }

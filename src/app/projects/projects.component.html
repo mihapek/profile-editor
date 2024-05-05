@@ -1,7 +1,7 @@
 <div style="margin-bottom: 20px;">
     <p-splitButton label="Add" (onClick)="profile.addProject()" [model]="addProjectItems"></p-splitButton>
 </div>
-<p-accordion [activeIndex]="0">
+<p-accordion>
     @for (project of profile.projects; track $index) {
     <p-accordionTab header="{{project.name}}">
         <div class="grid">
@@ -51,12 +51,16 @@
             <div class="col-10">
                 <div class="grid" style="margin-bottom: 20px;">
                     <div class="col-2">
-                        <p-button icon="pi pi-plus" (onClick)="project.addSkill('')"
-                            [style]="{'margin-right': '30px;'}" />
+                        <p-autoComplete [suggestions]="filteredSkills" [(ngModel)]="newSkill"
+                            (completeMethod)="filterSkill($event)" showEmptyMessage="false"
+                            (keydown.enter)="addSkill(project)" />
+                    </div>
+                    <div class="col-1">
+                        <p-button icon="pi pi-plus" (onClick)="addSkill(project)" [style]="{'margin-right': '30px;'}" />
                     </div>
                     <div class="col-1">
                         <p-button icon="pi pi-clone" (onClick)="skillsPopup.toggle($event)" />
-                        <p-overlayPanel #skillsPopup [style]="{'width': '600px'}">
+                        <p-overlayPanel #skillsPopup [style]="{'width': '1200px'}">
                             <ng-template pTemplate>
                                 @for (skill of skills; track index; let index=$index) {
                                 <p-button label="{{skills[index]}}" severity="secondary" class="skillButton"
@@ -69,8 +73,7 @@
                 @for (skill of project.skills; track index; let index=$index) {
                 <div class="grid">
                     <div class="col-2">
-                        <p-autoComplete [suggestions]="filteredSkills" [(ngModel)]="project.skills[index]"
-                            (completeMethod)="filterSkill($event)" />
+                        {{skill}}
                     </div>
                     <div class="col-1">
                         <p-button icon="pi pi-times" severity="warning" [text]="true"
@@ -80,6 +83,8 @@
                 }
             </div>
         </div>
+        <p-button icon="pi pi-trash" severity="warning" label="Delete project"
+            (onClick)="profile.removeProject($index)" />
     </p-accordionTab>
     }
 </p-accordion>

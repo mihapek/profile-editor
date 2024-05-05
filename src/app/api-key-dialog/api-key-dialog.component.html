@@ -1,0 +1,6 @@
+<p-dialog header="Enter API Key" [(visible)]="display" [style]="{width: '300px'}">
+    <input type="text" [(ngModel)]="apiKey" pInputText>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="submit()" label="Submit"></button>
+    </p-footer>
+</p-dialog>

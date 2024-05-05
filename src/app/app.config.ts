@@ -6,6 +6,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LoadingInterceptor } from './http-interceptors/loading-interceptor';
 import { MessageService } from 'primeng/api';
+import { ApiKeyDialogComponent } from './api-key-dialog/api-key-dialog.component';
 
 export const appConfig: ApplicationConfig = {
   providers: [

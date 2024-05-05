@@ -34,13 +34,13 @@ import { MessageService } from 'primeng/api';
 export class ProjectsComponent implements OnInit {
   @Input() profile: Profile;
   skills: string[];
+  newSkill: string;
   filteredSkills: string[];
   addProjectItems: MenuItem[];
 
   constructor(private profileService: ProfileService, private chatService: ChatService, private messageService: MessageService) { }
 
   ngOnInit(): void {
-    console.log("")
     this.profileService.skills$.subscribe((skills) => {
       this.skills = skills;
     })
@@ -54,7 +54,7 @@ export class ProjectsComponent implements OnInit {
   }
   generateProject() {
     if (this.profile.projects.length != 0) {
-      this.chatService.getProject(this.profile.projects).subscribe(data => {
+      this.chatService.getProject(this.profile.projects)?.subscribe(data => {
         const project = plainToClass(Project, JSON.parse(data));
         this.profile.addProject(project);
       });
@@ -76,4 +76,12 @@ export class ProjectsComponent implements OnInit {
     this.filteredSkills = filtered;
   }
 
+  addSkill(project: Project): void {
+    if (this.newSkill) {
+      project.addSkill(this.newSkill);
+      this.profileService.addSkill(this.newSkill);
+      this.newSkill = "";
+    }
+
+  }
 }

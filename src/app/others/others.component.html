@@ -1,28 +1,37 @@
-<div style="margin-bottom: 20px;">
-    <p-splitButton label="Add" (onClick)="object.addOther()" [model]="addOtherItems"></p-splitButton>
+<div class="grid" style="margin-bottom: 20px;">
+    <div class="col-5">
+        <p-splitButton label="Add" (onClick)="addOther()" [model]="addOtherItems"></p-splitButton>
+    </div>
+    @if(editor && object.others.length > 0) {
+    <div class="col-1">
+        <p-button icon="pi pi-code" severity="error" (onClick)="switchEditor()" />
+    </div>
+    }
 </div>
 @for (item of object.others; track $index) {
 <div class="grid">
     <div class="col-2">
+        @if (setFocus && ($index == object.others.length - 1)) {
+        <input type="text" pInputText [(ngModel)]="item.key" appPrefixFocusAndSelect />
+        }
+        @else {
         <input type="text" pInputText [(ngModel)]="item.key" />
+        }
     </div>
     <div class="col-3">
-        @if (!item.showEditor) {
         @if (editor) {
+        @if (showEditor) {
+        <p-editor [(ngModel)]="item.value" />
+        }
+        @else {
         <textarea pInputTextarea cols="45" rows="5" [(ngModel)]="item.value"></textarea>
+        }
         }
         @else {
         <input pInputText size="45" [(ngModel)]="item.value" />
         }
-        }
-        @else {
-        <p-editor [(ngModel)]="item.value" />
-        }
     </div>
     <div class="col-2">
-        @if (editor) {
-        <p-button icon="pi pi-file-edit" [text]="true" severity="error" (onClick)="item.switchEditor()" />
-        }
         <p-button icon="pi pi-times" [text]="true" severity="warning" (onClick)="object.removeOther(item)" />
     </div>
 </div>

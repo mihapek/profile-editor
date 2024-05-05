@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { DialogModule } from 'primeng/dialog';
@@ -8,10 +8,10 @@ import { Profile } from '../model/profile';
 import { saveAs } from "file-saver";
 import { ChatService } from '../chat.service';
 import { MenuItems } from './menu-item';
-import { LoadingService } from '../loading.service';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { ProfileItem } from '../model/profile-item';
 
 @Component({
   selector: 'app-menu',
@@ -49,15 +49,15 @@ export class MenuComponent implements OnInit {
   uploadProfile() {
     const input = document.createElement('input');
     input.type = 'file';
-    input.accept = ".json"
-    input.multiple = true;
+    input.accept = ".json";
 
     input.onchange = (event: any) => {
       const file = event.target.files[0];
       if (file) {
         const reader: FileReader = new FileReader();
         reader.onload = () => {
-          this.profileService.setProfile(plainToClass(Profile, JSON.parse(reader.result as string)));
+          let profile: Profile = this.profileService.convertProfile(JSON.parse(reader.result as string));
+          this.profileService.setProfile(profile);
         };
         reader.readAsText(file);
       }
@@ -75,11 +75,12 @@ export class MenuComponent implements OnInit {
 
   generateProfile(type: string) {
     this.customProfessionDialog = false;
-    this.chatService.getProfile(type).subscribe((data) => {
+    this.chatService.getProfile(type)?.subscribe((data) => {
       try {
         this.profileService.setProfile(plainToClass(Profile, JSON.parse(data)));
       }
       catch (error) {
+        console.log(data);
         console.error(error);
         this.generateProfile(type);
       }
@@ -94,7 +95,7 @@ export class MenuComponent implements OnInit {
         case "description": { headerPrefix = "Description of "; break }
       }
       this.personDialogHeader = headerPrefix + this.profile.person.name;
-      this.chatService.getPersonContent(type, this.profile).subscribe((data) => {
+      this.chatService.getPersonContent(type, false, this.profile)?.subscribe((data) => {
         this.personDialogContent = data;
         this.personDialog = true;
       })
@@ -102,6 +103,12 @@ export class MenuComponent implements OnInit {
     else {
       this.messageService.add({ detail: 'Enter at least person\'s name' });
     }
+  }
+
+  generatePersonFoto() {
+    this.chatService.getPersonFoto(this.profile)?.subscribe((data) => {
+      this.profileService.setPersonFoto(data);
+    })
   }
 
   switchCustomProfessionDialog() {

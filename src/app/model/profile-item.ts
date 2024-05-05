@@ -1,16 +1,9 @@
 export class ProfileItem {
-    key: string;
-    value: string;
-    showEditor: boolean = false
+    key: string | undefined;
+    value: string | undefined;
 
-    switchEditor(): void {
-        this.showEditor = !this.showEditor;
+    constructor(key?: string, value?: string) {
+        this.key = key;
+        this.value = value;
     }
-
-    toJSON() {
-        return {
-            "key": this.key,
-            "value": this.value
-        };
-    };
 }

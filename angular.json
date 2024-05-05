@@ -93,6 +93,12 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "options": {
+            "baseHref": "https://mihapek.github.io/profile-editor/"
+          },
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

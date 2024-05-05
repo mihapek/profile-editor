@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FileComponent } from './file.component';
+import { ApiKeyDialogComponent } from './api-key-dialog.component';
 
-describe('FileComponent', () => {
-  let component: FileComponent;
-  let fixture: ComponentFixture<FileComponent>;
+describe('ApiKeyDialogComponent', () => {
+  let component: ApiKeyDialogComponent;
+  let fixture: ComponentFixture<ApiKeyDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FileComponent]
+      imports: [ApiKeyDialogComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(FileComponent);
+    fixture = TestBed.createComponent(ApiKeyDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

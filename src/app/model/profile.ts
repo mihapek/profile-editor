@@ -14,4 +14,8 @@ export class Profile extends HasOthers {
     addProject(project?: Project): void {
         this.projects.splice(0, 0, project ? project : new Project);
     }
+
+    removeProject(index: number) {
+        this.projects.splice(index, 1);
+    }
 }

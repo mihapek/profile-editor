@@ -4,6 +4,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LoadingInterceptor } from './app/http-interceptors/loading-interceptor';
 import { MessageService } from 'primeng/api';
+import { ApiKeyDialogComponent } from './app/api-key-dialog/api-key-dialog.component';
 
 bootstrapApplication(AppComponent, {
   providers: [
