@@ -42,23 +42,26 @@ export class ProfileService {
 
   convertProfile(json: any): Profile {
     let profile: Profile = plainToClass(Profile, json);
-    profile.person.others = [];
-    profile.others = [];
-    for (let prop in json.person.others) {
-      profile.person.addOther(new ProfileItem(prop, json.person.others[prop]));
+    if (!Array.isArray(profile.person.others)) {
+      profile.person.others = [];
+      for (let prop in json.person.others) {
+        profile.person.addOther(new ProfileItem(prop, json.person.others[prop]));
+      }
     }
-    for (let prop in json.others) {
-      profile.addOther(new ProfileItem(prop, json.others[prop]));
+    if (!Array.isArray(profile.others)) {
+      profile.others = [];
+
+      for (let prop in json.others) {
+        profile.addOther(new ProfileItem(prop, json.others[prop]));
+      }
     }
     profile.projects.forEach(project => {
       project.skills.forEach((skill: any, i) => {
         if (skill.name) {
           project.skills[i] = skill.name;
         }
-      }
-      )
-    }
-    )
+      })
+    })
     return profile;
   }
 
