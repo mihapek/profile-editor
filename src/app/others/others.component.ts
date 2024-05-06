@@ -9,8 +9,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ChatService } from '../chat.service';
 import { ProfileItem } from '../model/profile-item';
-import { plainToClass } from 'class-transformer';
 import { FocusOnShowDirective } from '../focusOnShowDerictive';
+import { DragDropModule } from 'primeng/dragdrop';
 
 @Component({
   selector: 'app-others',
@@ -22,7 +22,8 @@ import { FocusOnShowDirective } from '../focusOnShowDerictive';
     EditorModule,
     SplitButtonModule,
     FormsModule,
-    FocusOnShowDirective,
+    DragDropModule,
+    FocusOnShowDirective
   ],
   templateUrl: './others.component.html',
   styleUrl: './others.component.css'
@@ -33,6 +34,7 @@ export class OthersComponent implements OnInit {
   addOtherItems: MenuItem[];
   showEditor: boolean;
   setFocus: boolean;
+  startIndex: number;
 
   constructor(private chatService: ChatService, private messageService: MessageService) { }
 
@@ -68,6 +70,16 @@ export class OthersComponent implements OnInit {
 
   switchEditor(): void {
     this.showEditor = !this.showEditor;
+  }
+
+  onDragStart(index: number) {
+    this.startIndex = index;
+  }
+
+  onDrop(dropIndex: number) {
+    const other = this.object.others[this.startIndex];
+    this.object.others.splice(this.startIndex, 1);
+    this.object.others.splice(dropIndex, 0, other);
   }
 
 }

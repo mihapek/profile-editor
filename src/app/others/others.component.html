@@ -9,8 +9,10 @@
     }
 </div>
 @for (item of object.others; track $index) {
-<div class="grid">
+<div class="grid" pDraggable="gens" pDroppable="gens" dragHandle=".otherIcon" (onDragStart)="onDragStart($index)"
+    (onDrop)="onDrop($index)">
     <div class="col-2">
+        <i class="pi pi-bars otherIcon"></i>
         @if (setFocus && ($index == object.others.length - 1)) {
         <input type="text" pInputText [(ngModel)]="item.key" appPrefixFocusAndSelect />
         }

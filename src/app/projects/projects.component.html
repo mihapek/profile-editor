@@ -1,7 +1,7 @@
 <div style="margin-bottom: 20px;">
     <p-splitButton label="Add" (onClick)="profile.addProject()" [model]="addProjectItems"></p-splitButton>
 </div>
-<p-accordion>
+<p-accordion [activeIndex]="0">
     @for (project of profile.projects; track $index) {
     <p-accordionTab header="{{project.name}}">
         <div class="grid">
@@ -73,7 +73,8 @@
                 @for (skill of project.skills; track index; let index=$index) {
                 <div class="grid">
                     <div class="col-2">
-                        {{skill}}
+                        <p-autoComplete [suggestions]="filteredSkills" [(ngModel)]="project.skills[index]"
+                            (completeMethod)="filterSkill($event)" showEmptyMessage="false" />
                     </div>
                     <div class="col-1">
                         <p-button icon="pi pi-times" severity="warning" [text]="true"
