@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -28,7 +28,7 @@ import { DragDropModule } from 'primeng/dragdrop';
   templateUrl: './others.component.html',
   styleUrl: './others.component.css'
 })
-export class OthersComponent implements OnInit {
+export class OthersComponent implements OnInit, OnChanges {
   @Input() object: HasOthers;
   @Input() editor: boolean;
   addOtherItems: MenuItem[];
@@ -46,6 +46,12 @@ export class OthersComponent implements OnInit {
         }
       }
     ]
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['object']) {
+      this.setFocus = false;
+    }
   }
 
   addOther(): void {

@@ -2,7 +2,7 @@ import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
     standalone: true,
-    selector: '[appPrefixFocusAndSelect]',
+    selector: '[appSetFocus]',
 })
 export class FocusOnShowDirective implements OnInit {
     constructor(private el: ElementRef) {
@@ -14,6 +14,5 @@ export class FocusOnShowDirective implements OnInit {
     ngOnInit(): void {
         const input: HTMLInputElement = this.el.nativeElement as HTMLInputElement;
         input.focus();
-        //input.select();
     }
 }

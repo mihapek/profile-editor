@@ -14,7 +14,7 @@
     <div class="col-2">
         <i class="pi pi-bars otherIcon"></i>
         @if (setFocus && ($index == object.others.length - 1)) {
-        <input type="text" pInputText [(ngModel)]="item.key" appPrefixFocusAndSelect />
+        <input type="text" pInputText [(ngModel)]="item.key" appSetFocus />
         }
         @else {
         <input type="text" pInputText [(ngModel)]="item.key" />

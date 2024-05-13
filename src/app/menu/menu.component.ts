@@ -56,7 +56,8 @@ export class MenuComponent implements OnInit {
       if (file) {
         const reader: FileReader = new FileReader();
         reader.onload = () => {
-          let profile: Profile = this.profileService.convertProfile(JSON.parse(reader.result as string));
+          let profileData = JSON.parse(reader.result as string);
+          let profile: Profile = this.profileService.convertProfile(profileData);
           this.profileService.setProfile(profile);
         };
         reader.readAsText(file);
@@ -88,6 +89,8 @@ export class MenuComponent implements OnInit {
   }
 
   generatePersonContent(type: string) {
+    this.personDialogContent = "";
+    this.personDialog = false;
     if (this.profile.person.name) {
       let headerPrefix;
       switch (type) {
