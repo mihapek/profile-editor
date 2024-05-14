@@ -63,7 +63,6 @@ export class OthersComponent implements OnInit, OnChanges {
     this.setFocus = true;
     if (this.object.others.length != 0) {
       this.chatService.getOther(this.object.others)?.subscribe(data => {
-        console.log(data);
         let json = JSON.parse(data);
         const other = new ProfileItem(json.key, json.value);
         this.object.addOther(other);

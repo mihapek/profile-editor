@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class LanguageService {
 
-  language: string;
+  language = "English";
   constructor() { }
 
   setLanguage(selectedLanguage: string) {

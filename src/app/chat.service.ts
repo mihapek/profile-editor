@@ -23,46 +23,36 @@ export class ChatService {
   constructor(private http: HttpClient, private languageService: LanguageService) { }
 
   getProfile(type: string): Observable<string> | undefined {
-    const prompt = "here is json file with a profile of one person. " +
-      "generate similar one for the person who wants to work as " + type +
-      this.getPromptEnding() + JSON.stringify(profileSample).replace('{"default":', '');
+    const jsonProfile = JSON.stringify(profileSample).replace('{"default":', '');
+    const prompt = `here is json file with a profile of one person. generate similar one for the person who wants to work as 
+                  ${type} ${this.getPromptEnding()} ${jsonProfile}`;
     return this.getChatResponse(prompt);
   }
+
   getPersonContent(type: string, short: boolean, profile: Profile): Observable<string> | undefined {
-    let prompt = "here is json file with a profile of one person. ";
-    switch (type) {
-      case "poem": {
-        prompt += "write a short poem about this person ";
-        break
-      }
-      case "description": {
-        prompt += "describe this person in ";
-        prompt += (short) ? "one sentence" : "few paragraphs";
-        break
-      }
-    }
-    prompt += " in language " + this.languageService.language + ".\n" + JSON.stringify(profile);
+    const contentTypes: any = {
+      "poem": "write a short poem about this person ",
+      "description": `describe this person in ${(short) ? "one sentence" : "few paragraphs"}`
+    };
+    let prompt = `here is json file with a profile of one person. ${contentTypes[type]} 
+                 in language ${this.languageService.language}.\n${JSON.stringify(profile)}`;
     return this.getChatResponse(prompt);
   }
 
   getProject(projects: Project[]): Observable<string> | undefined {
-    const prompt = "here is json file with projects of one person. " +
-      "generate a new similar project " +
-      " as single object without array" +
-      this.getPromptEnding() + JSON.stringify(projects);
+    const prompt = `here is json file with projects of one person. generate a new similar project as single object without array
+                  ${this.getPromptEnding()} ${JSON.stringify(projects)}`;
     return this.getChatResponse(prompt);
   }
 
   getOther(others: ProfileItem[]): Observable<string> | undefined {
-    const prompt = "here is json file with information about one person. " +
-      "generate another information " +
-      " as single object without array" +
-      this.getPromptEnding() + JSON.stringify(others);
+    const prompt = `here is json file with information about one person. generate another information as single object without array
+                  ${this.getPromptEnding()}${JSON.stringify(others)}`;
     return this.getChatResponse(prompt);
   }
 
   getPromptEnding(): string {
-    return " in the same json format but in language " + this.languageService.language + ".\n"
+    return ` in the same json format and in ${this.languageService.language} language.\n`;
   }
 
   getPersonFoto(profile: Profile): Observable<string> | undefined {
@@ -70,9 +60,13 @@ export class ChatService {
       this.apiKeyRequest.next();
       return;
     }
-    return this.getPersonContent("description", true, profile)?.pipe(
+    const personDescription$ = this.getPersonContent("description", true, profile);
+    if (!personDescription$) {
+      return;
+    }
+    return personDescription$.pipe(
       switchMap(data => {
-        let prompt = "generate a foto of the following person: " + data;
+        const prompt = `generate a foto of the following person: ${data}`;
         const requestBody = {
           model: 'dall-e-2',
           size: "256x256",
@@ -80,9 +74,7 @@ export class ChatService {
         };
         return this.http.post<Response>(this.apiImageUrl, requestBody, { headers: this.getHeaders() });
       }),
-      map((resp: any) => {
-        return resp.data[0].url;
-      })
+      map((resp: any) => resp.data[0].url)
     );
   }
 
@@ -112,6 +104,7 @@ export class ChatService {
   setApiKey(key: string): void {
     this.apiKey = key;
   }
+
 
 }
 
