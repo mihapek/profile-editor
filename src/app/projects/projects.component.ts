@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
@@ -14,36 +14,35 @@ import { ChatService } from '../chat.service';
 import { plainToClass } from 'class-transformer';
 import { Project } from '../model/project';
 import { MessageService } from 'primeng/api';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FocusOnShowDirective } from '../focusOnShowDerictive';
+import { SkillsComponent } from '../skills/skills.component';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
   imports: [
+    SkillsComponent,
     ButtonModule,
     InputTextModule,
+    InputTextareaModule,
     FormsModule,
     AccordionModule,
     CalendarModule,
-    AutoCompleteModule,
     SplitButtonModule,
-    OverlayPanelModule
+    FocusOnShowDirective
   ],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css'
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, OnChanges {
   @Input() profile: Profile;
-  skills: string[];
-  newSkill: string;
-  filteredSkills: string[];
   addProjectItems: MenuItem[];
+  focus: boolean;
 
   constructor(private profileService: ProfileService, private chatService: ChatService, private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.profileService.skills$.subscribe((skills) => {
-      this.skills = skills;
-    })
     this.addProjectItems = [
       {
         label: 'Generate project', command: () => {
@@ -52,6 +51,18 @@ export class ProjectsComponent implements OnInit {
       }
     ]
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['object']) {
+      this.focus = false;
+    }
+  }
+
+  addProject(): void {
+    this.focus = true;
+    this.profile.addProject();
+  }
+
   generateProject() {
     if (this.profile.projects.length != 0) {
       this.chatService.getProject(this.profile.projects)?.subscribe(data => {
@@ -64,24 +75,4 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
-  filterSkill(event: any) {
-    let filtered: any[] = [];
-    let query = event.query;
-    this.skills.forEach(skill => {
-      if (skill.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(skill);
-      }
-    }
-    )
-    this.filteredSkills = filtered;
-  }
-
-  addSkill(project: Project): void {
-    if (this.newSkill) {
-      project.addSkill(this.newSkill);
-      this.profileService.addSkill(this.newSkill);
-      this.newSkill = "";
-    }
-
-  }
 }

@@ -5,6 +5,7 @@ export class Project {
     descriptions: string;
     fromDate: Date;
     toDate: Date;
+    description: string;
     skills: string[] = [];
 
     addSkill(skill: string): void {

@@ -1,0 +1,28 @@
+<div class="flex flex-column gap-4" style="max-width: 600px">
+    <div class="flex flex-column gap-2">
+        <label for="skills">Skills</label>
+        <div class="flex gap-2">
+            <p-autoComplete id="skills" [suggestions]="filteredSkills" [(ngModel)]="newSkill"
+                (completeMethod)="filterSkill($event)" showEmptyMessage="false" (keydown.enter)="addSkill(project)" />
+            <p-button icon="pi pi-plus" (onClick)="addSkill(project)" raised text />
+            <p-button icon="pi pi-clone" (onClick)="skillsPopup.toggle($event)" raised text />
+        </div>
+    </div>
+    @for (skill of project.skills; track index; let index=$index) {
+    <div class="flex gap-2">
+        <p-autoComplete [suggestions]="filteredSkills" [(ngModel)]="project.skills[index]"
+            (completeMethod)="filterSkill($event)" showEmptyMessage="false" />
+        <p-button icon="pi pi-times" severity="warning" [text]="true" (onClick)="project.removeSkill(index)" />
+    </div>
+    }
+</div>
+
+
+<p-overlayPanel #skillsPopup [style]="{'width': '1200px'}">
+    <ng-template pTemplate>
+        @for (skill of skills; track index; let index=$index) {
+        <p-button label="{{skills[index]}}" severity="secondary" class="skillButton"
+            (onClick)="project.addSkill(skill)" />
+        }
+    </ng-template>
+</p-overlayPanel>

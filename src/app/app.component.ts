@@ -26,7 +26,6 @@ import { plainToClass } from 'class-transformer';
     ProjectsComponent,
     OthersComponent,
     LoadingIndicatorComponent,
-    LanguageSelectorComponent,
     ApiKeyDialogComponent,
     CardModule,
     ToastModule,

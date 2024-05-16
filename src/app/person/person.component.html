@@ -1,34 +1,22 @@
-<div class="grid">
-    <div class="col-5">
-        <div class="grid">
-            <div class="col-1">
-                Name
-            </div>
-            <div class="col-2">
-                <input type="text" pInputText [(ngModel)]="person.name" />
-            </div>
+<div class="flex flex-column gap-4">
+    <div class="flex flex-column gap-4" style="max-width: 600px;">
+        <div class="flex flex-column gap-2">
+            <label for="name">Name</label>
+            <input id="name" type="text" pInputText [(ngModel)]="person.name" />
         </div>
-        <div class="grid">
-            <div class="col-1">
-                Foto
-            </div>
-            <div class="col-2">
-                <input type="text" pInputText size="50" [(ngModel)]="person.foto" />
-            </div>
+        <div class="flex flex-column gap-2">
+            <label for="foto">Foto</label>
+            <input id="foto" type="text" pInputText [(ngModel)]="person.foto" />
         </div>
-        <div class="grid">
-            <div class="col-1">
-                Motto
-            </div>
-            <div class="col-2">
-                <input type="text" pInputText size="50" [(ngModel)]="person.motto" />
-            </div>
+        <div class="flex flex-column gap-2">
+            <label for="moto">Moto</label>
+            <input id="moto" type="text" pInputText [(ngModel)]="person.motto" />
         </div>
     </div>
-    <div class="col-3">
+    <div class="flex justify-end">
         <img src="{{imageUrl}}" />
     </div>
+    <p-card header="Additionals">
+        <app-others [object]="person" [editorEnabled]="false" />
+    </p-card>
 </div>
-<p-card header="Additionals">
-    <app-others [object]="person" [editor]="false" />
-</p-card>

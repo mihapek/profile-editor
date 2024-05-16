@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProfileItem } from '../model/profile-item';
+import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 
 @Component({
   selector: 'app-menu',
@@ -21,7 +22,8 @@ import { ProfileItem } from '../model/profile-item';
     DialogModule,
     FormsModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    LanguageSelectorComponent
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
@@ -75,17 +77,29 @@ export class MenuComponent implements OnInit {
   }
 
   generateProfile(type: string) {
-    this.customProfessionDialog = false;
-    this.chatService.getProfile(type)?.subscribe((data) => {
-      try {
-        this.profileService.setProfile(plainToClass(Profile, JSON.parse(data)));
-      }
-      catch (error) {
-        console.log(data);
-        console.error(error);
-        this.generateProfile(type);
-      }
-    })
+    let attempts = 0;
+    const maxAttempts = 3;
+
+    const getProfile = () => {
+      this.customProfessionDialog = false;
+      this.chatService.getProfile(type)?.subscribe((data) => {
+        try {
+          const jsonProfile = JSON.parse(data);
+          this.profileService.setProfile(plainToClass(Profile, jsonProfile));
+        } catch (error) {
+          console.log(data);
+          console.error(error);
+          attempts++;
+          if (attempts < maxAttempts) {
+            getProfile();
+          } else {
+            console.log('Max attempts reached');
+          }
+        }
+      });
+    };
+
+    getProfile();
   }
 
   generatePersonContent(type: string) {

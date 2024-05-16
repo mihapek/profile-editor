@@ -1,40 +1,29 @@
-<div class="grid" style="margin-bottom: 20px;">
-    <div class="col-5">
-        <p-splitButton label="Add" (onClick)="addOther()" [model]="addOtherItems"></p-splitButton>
+<div class="flex flex-column gap-4" style="max-width: 800px;">
+    <div class="flex gap-2">
+        <p-splitButton label="Add" (onClick)="addOther()" [model]="addOtherItems" raised text></p-splitButton>
+        <p-button *ngIf="isEditorEnabled()" class="ml-auto" icon="pi pi-code" (onClick)="switchEditor()" text raised />
     </div>
-    @if(editor && object.others.length > 0) {
-    <div class="col-1">
-        <p-button icon="pi pi-code" severity="error" (onClick)="switchEditor()" />
+
+    @for (item of object.others; track $index) {
+    <div class="flex align-items-start gap-4 flex-wrap" pDraggable="gens" pDroppable="gens" dragHandle=".otherIcon"
+        (onDragStart)="onDragStart($index)" (onDrop)="onDrop($index)">
+        <div class="flex align-items-center">
+            <i class="pi pi-bars otherIcon"></i>
+            @if (isFocus($index)) {
+            <input class="align-self-baseline" type="text" size="20" pInputText [(ngModel)]="item.key" appSetFocus />
+            }
+            @else {
+            <input class="align-self-baseline" type="text" size="20" pInputText [(ngModel)]="item.key" />
+            }
+            <p-button class="block sm:hidden ml-auto" icon="pi pi-times" [text]="true" severity="warning"
+                (onClick)="object.removeOther($index)" />
+        </div>
+        <p-editor *ngIf="showEditor" [(ngModel)]="item.value" />
+        <textarea pInputTextarea *ngIf="editorEnabled && !showEditor" cols="43" rows="5"
+            [(ngModel)]="item.value"></textarea>
+        <input pInputText *ngIf="!editorEnabled" [(ngModel)]="item.value" size="30" />
+        <p-button class="hidden sm:block" icon="pi pi-times" [text]="true" severity="warning"
+            (onClick)="object.removeOther($index)" />
     </div>
     }
 </div>
-@for (item of object.others; track $index) {
-<div class="grid" pDraggable="gens" pDroppable="gens" dragHandle=".otherIcon" (onDragStart)="onDragStart($index)"
-    (onDrop)="onDrop($index)">
-    <div class="col-2">
-        <i class="pi pi-bars otherIcon"></i>
-        @if (setFocus && ($index == object.others.length - 1)) {
-        <input type="text" pInputText [(ngModel)]="item.key" appSetFocus />
-        }
-        @else {
-        <input type="text" pInputText [(ngModel)]="item.key" />
-        }
-    </div>
-    <div class="col-3">
-        @if (editor) {
-        @if (showEditor) {
-        <p-editor [(ngModel)]="item.value" />
-        }
-        @else {
-        <textarea pInputTextarea cols="45" rows="5" [(ngModel)]="item.value"></textarea>
-        }
-        }
-        @else {
-        <input pInputText size="45" [(ngModel)]="item.value" />
-        }
-    </div>
-    <div class="col-2">
-        <p-button icon="pi pi-times" [text]="true" severity="warning" (onClick)="object.removeOther(item)" />
-    </div>
-</div>
-}

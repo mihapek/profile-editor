@@ -5,6 +5,11 @@
 @import "primeflex/primeflex.css";
 @import "quill/dist/quill.snow.css";
 
+body {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .loading {
     position: fixed;
     top: 50%;

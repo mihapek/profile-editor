@@ -10,7 +10,7 @@ export class HasOthers {
         this.others.push(profileItem ? profileItem : new ProfileItem);
     }
 
-    removeOther(item: ProfileItem): void {
-        this.others = this.others.filter(obj => obj.key !== item.key);
+    removeOther(index: number): void {
+        this.others.splice(index, 1);
     }
 }

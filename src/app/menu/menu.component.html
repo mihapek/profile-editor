@@ -1,4 +1,8 @@
-<p-menubar [model]="items" autoHide="true"></p-menubar>
+<p-menubar [model]="items" autoHide="true">
+    <ng-template pTemplate="end">
+        <language-selector />
+    </ng-template>
+</p-menubar>
 <p-dialog header="Custom profession" [(visible)]="customProfessionDialog">
     <input type="text" pInputText #customProfession style="margin-right: 20px;"
         (keydown.enter)="generateProfile(customProfession.value)" required="true" />

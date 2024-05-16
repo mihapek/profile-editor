@@ -22,7 +22,7 @@ import { ProfileService } from '../profile.service';
 })
 export class PersonComponent implements OnInit {
   @Input() person: Person;
-  imageUrl: string;
+  imageUrl = "AAA";//"https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg"
 
   constructor(private profileService: ProfileService) { }
 

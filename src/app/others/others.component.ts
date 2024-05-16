@@ -11,11 +11,13 @@ import { ChatService } from '../chat.service';
 import { ProfileItem } from '../model/profile-item';
 import { FocusOnShowDirective } from '../focusOnShowDerictive';
 import { DragDropModule } from 'primeng/dragdrop';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-others',
   standalone: true,
   imports: [
+    NgIf,
     ButtonModule,
     InputTextModule,
     InputTextareaModule,
@@ -30,10 +32,10 @@ import { DragDropModule } from 'primeng/dragdrop';
 })
 export class OthersComponent implements OnInit, OnChanges {
   @Input() object: HasOthers;
-  @Input() editor: boolean;
+  @Input() editorEnabled: boolean;
   addOtherItems: MenuItem[];
   showEditor: boolean;
-  setFocus: boolean;
+  focus: boolean;
   startIndex: number;
 
   constructor(private chatService: ChatService, private messageService: MessageService) { }
@@ -50,17 +52,17 @@ export class OthersComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['object']) {
-      this.setFocus = false;
+      this.focus = false;
     }
   }
 
   addOther(): void {
-    this.setFocus = true;
+    this.focus = true;
     this.object.addOther();
   }
 
   generateOther() {
-    this.setFocus = true;
+    this.focus = true;
     if (this.object.others.length != 0) {
       this.chatService.getOther(this.object.others)?.subscribe(data => {
         let json = JSON.parse(data);
@@ -85,6 +87,14 @@ export class OthersComponent implements OnInit, OnChanges {
     const other = this.object.others[this.startIndex];
     this.object.others.splice(this.startIndex, 1);
     this.object.others.splice(dropIndex, 0, other);
+  }
+
+  isFocus(index: number): boolean {
+    return this.focus && (index == this.object.others.length - 1)
+  }
+
+  isEditorEnabled(): boolean {
+    return this.editorEnabled && this.object.others.length > 0
   }
 
 }
