@@ -11,8 +11,8 @@ import { MenuItems } from './menu-item';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { ProfileItem } from '../model/profile-item';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
+import { UploadService } from '../upload.service';
 
 @Component({
   selector: 'app-menu',
@@ -36,9 +36,8 @@ export class MenuComponent implements OnInit {
   personDialogContent: string;
   personDialogHeader: string;
 
-  constructor(private profileService: ProfileService,
-    private chatService: ChatService,
-    private messageService: MessageService) { }
+  constructor(private profileService: ProfileService, private chatService: ChatService,
+    private messageService: MessageService, private uploadService: UploadService) { }
 
   ngOnInit(): void {
     let menuItems: MenuItems = new MenuItems(this);
@@ -49,23 +48,7 @@ export class MenuComponent implements OnInit {
   }
 
   uploadProfile() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = ".json";
-
-    input.onchange = (event: any) => {
-      const file = event.target.files[0];
-      if (file) {
-        const reader: FileReader = new FileReader();
-        reader.onload = () => {
-          let profileData = JSON.parse(reader.result as string);
-          let profile: Profile = this.profileService.convertProfile(profileData);
-          this.profileService.setProfile(profile);
-        };
-        reader.readAsText(file);
-      }
-    }
-    input.click()
+    this.uploadService.uploadProfile();
   }
 
   newProfile() {
@@ -86,7 +69,8 @@ export class MenuComponent implements OnInit {
         try {
           const jsonProfile = JSON.parse(data);
           this.profileService.setProfile(plainToClass(Profile, jsonProfile));
-        } catch (error) {
+        }
+        catch (error) {
           console.log(data);
           console.error(error);
           attempts++;

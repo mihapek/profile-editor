@@ -1,22 +1,19 @@
-<div class="flex flex-column gap-4">
-    <div class="flex flex-column gap-4" style="max-width: 600px;">
+<div class="flex gap-4 justify-content-between flex-wrap-reverse">
+    <div class=" flex flex-column gap-4" style="width: 750px;">
         <div class="flex flex-column gap-2">
             <label for="name">Name</label>
-            <input id="name" type="text" pInputText [(ngModel)]="person.name" />
-        </div>
-        <div class="flex flex-column gap-2">
-            <label for="foto">Foto</label>
-            <input id="foto" type="text" pInputText [(ngModel)]="person.foto" />
+            <input id="name" type="text" size="20" pInputText [(ngModel)]="person.name" />
         </div>
         <div class="flex flex-column gap-2">
             <label for="moto">Moto</label>
-            <input id="moto" type="text" pInputText [(ngModel)]="person.motto" />
+            <input id="moto" type="text" size="20" pInputText [(ngModel)]="person.motto" />
         </div>
+        <p-card header="Additionals">
+            <app-others [object]="person" [editorEnabled]="false" />
+        </p-card>
     </div>
-    <div class="flex justify-end">
-        <img src="{{imageUrl}}" />
+    <div class="flex flex-column gap-2" style="padding-right: 20px;">
+        <p-button (onClick)="uploadFoto()" icon="pi pi-images" [rounded]="true" [outlined]="true" class="ml-auto" />
+        <img style="width: 300px;" src="{{person.foto}}" />
     </div>
-    <p-card header="Additionals">
-        <app-others [object]="person" [editorEnabled]="false" />
-    </p-card>
 </div>
