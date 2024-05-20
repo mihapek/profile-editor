@@ -9,6 +9,7 @@ import { LanguageService } from './language.service';
 import { environment } from '../environments/environment';
 import { ApiKeyDialogComponent } from './api-key-dialog/api-key-dialog.component';
 import { LoadingService } from './loading.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class ChatService {
   private apiKeyRequest = new Subject<void>();
   apiKeyRequest$ = this.apiKeyRequest.asObservable();
 
-  constructor(private http: HttpClient, private languageService: LanguageService) { }
+  constructor(private http: HttpClient, private languageService: LanguageService, private cookieService: CookieService) { }
 
   getProfile(type: string): Observable<string> | undefined {
     const jsonProfile = JSON.stringify(profileSample).replace('{"default":', '');
@@ -56,7 +57,7 @@ export class ChatService {
   }
 
   getPersonFoto(profile: Profile): Observable<string> | undefined {
-    if (!this.apiKey) {
+    if (!this.getApiKey()) {
       this.apiKeyRequest.next();
       return;
     }
@@ -85,7 +86,7 @@ export class ChatService {
   }
 
   private getChatResponse(prompt: string): Observable<string> | undefined {
-    if (!this.apiKey) {
+    if (!this.getApiKey()) {
       this.apiKeyRequest.next();
       return;
     }
@@ -98,6 +99,13 @@ export class ChatService {
       .pipe(map((resp: any) => {
         return resp.choices[0].message.content;
       }));
+  }
+
+  private getApiKey(): string {
+    if (!this.apiKey) {
+      this.apiKey = this.cookieService.get("openAiKey");
+    }
+    return this.apiKey;
   }
 
   private getHeaders(): any {

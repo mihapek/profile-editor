@@ -16,6 +16,7 @@
         <p-button (onClick)="fotoUploader.click()" icon="pi pi-images" [rounded]="true" [outlined]="true"
             class="ml-auto" />
         <input type="file" accept="image/*" #fotoUploader (change)="uploadFoto($event)" style="display: none;" />
-        <img class="personFoto" src="{{person.foto}}" (dblclick)="makeAnimation()" (click)="stopAnimation()" />
+        <img class="personFoto" src="{{person.foto}}" (dblclick)="makeAnimation()" (click)="stopAnimation()"
+            onerror="this.src='assets/default-foto.png'" />
     </div>
 </div>
