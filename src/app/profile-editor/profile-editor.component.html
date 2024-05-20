@@ -1,0 +1,15 @@
+<div class="flex flex-column gap-2">
+    <p-card header="Person">
+        <app-person [person]="profile.person" />
+    </p-card>
+    <p-card header="Projects">
+        <app-projects [profile]="profile" />
+    </p-card>
+    <p-card header="Others">
+        <app-others [object]="profile" [editorEnabled]="true" />
+    </p-card>
+</div>
+<p-toast position="top-center"></p-toast>
+
+<loading-indicator />
+<app-api-key-dialog #apiKeyDialog />

@@ -14,8 +14,8 @@ import { LoadingService } from './loading.service';
   providedIn: 'root'
 })
 export class ChatService {
-  private apiChatUrl = 'https://api.openai.com/v1/chat/completions';
-  private apiImageUrl = 'https://api.openai.com/v1/images/generations';
+  private apiChatUrl = environment.chatApiUrl;
+  private apiImageUrl = environment.imageApiUrl;
   private apiKey = environment.apiKey;
   private apiKeyRequest = new Subject<void>();
   apiKeyRequest$ = this.apiKeyRequest.asObservable();
@@ -76,6 +76,12 @@ export class ChatService {
       }),
       map((resp: any) => resp.data[0].url)
     );
+  }
+
+  getAnimationStyle() {
+    const prompt = "have html image element with .personFoto class. give me please css for cool animation of this image." +
+      " just pure css as answer without any text more. try to be each time creative "
+    return this.getChatResponse(prompt);
   }
 
   private getChatResponse(prompt: string): Observable<string> | undefined {

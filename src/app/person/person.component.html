@@ -13,7 +13,9 @@
         </p-card>
     </div>
     <div class="flex flex-column gap-2" style="padding-right: 20px;">
-        <p-button (onClick)="uploadFoto()" icon="pi pi-images" [rounded]="true" [outlined]="true" class="ml-auto" />
-        <img style="width: 300px;" src="{{person.foto}}" />
+        <p-button (onClick)="fotoUploader.click()" icon="pi pi-images" [rounded]="true" [outlined]="true"
+            class="ml-auto" />
+        <input type="file" accept="image/*" #fotoUploader (change)="uploadFoto($event)" style="display: none;" />
+        <img class="personFoto" src="{{person.foto}}" (dblclick)="makeAnimation()" (click)="stopAnimation()" />
     </div>
 </div>

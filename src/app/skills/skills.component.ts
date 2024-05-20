@@ -30,7 +30,7 @@ export class SkillsComponent {
   constructor(private profileService: ProfileService) { }
 
   ngOnInit(): void {
-    this.profileService.skills$.subscribe((skills) => {
+    this.profileService.skills.subscribe((skills) => {
       this.skills = skills;
     })
   }

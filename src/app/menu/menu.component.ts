@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { DialogModule } from 'primeng/dialog';
@@ -13,6 +13,9 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { UploadService } from '../upload.service';
+import { PersistenceService } from '../persistence.service';
+import { Location } from '@angular/common';
+import { error } from 'console';
 
 @Component({
   selector: 'app-menu',
@@ -29,6 +32,8 @@ import { UploadService } from '../upload.service';
   styleUrl: './menu.component.css'
 })
 export class MenuComponent implements OnInit {
+  @ViewChild('profileUploader') profileUploader: ElementRef;
+
   items: MenuItem[];
   profile: Profile;
   customProfessionDialog = false;
@@ -37,26 +42,44 @@ export class MenuComponent implements OnInit {
   personDialogHeader: string;
 
   constructor(private profileService: ProfileService, private chatService: ChatService,
-    private messageService: MessageService, private uploadService: UploadService) { }
+    private messageService: MessageService, private uploadService: UploadService,
+    private persistenceService: PersistenceService, private location: Location) { }
 
   ngOnInit(): void {
     let menuItems: MenuItems = new MenuItems(this);
     this.items = menuItems.items;
-    this.profileService.selectedProfile$.subscribe(
+    this.profileService.profile.subscribe(
       data => this.profile = data
     )
   }
 
-  uploadProfile() {
-    this.uploadService.uploadProfile();
+  openProfile() {
+    this.profileUploader.nativeElement.click();
+    this.resetLocation();
+  }
+
+  uploadProfile(event: any) {
+    this.uploadService.uploadProfile(event.target.files[0]);
   }
 
   newProfile() {
     this.profileService.setProfile(new Profile);
+    this.resetLocation();
+  }
+
+  exportProfile() {
+    return saveAs(new Blob([JSON.stringify(this.profile, null, 2)], { type: 'JSON' }), 'profile.json');
   }
 
   saveProfile() {
-    return saveAs(new Blob([JSON.stringify(this.profile, null, 2)], { type: 'JSON' }), 'profile.json');
+    this.persistenceService.saveProfile(this.profile).subscribe(
+      (profileId) => {
+        this.location.go(`editor/${profileId}`);
+        this.messageService.add({ detail: "Profile successfully saved" })
+      },
+      (error) => {
+        this.messageService.add({ detail: error.message })
+      })
   }
 
   generateProfile(type: string) {
@@ -84,6 +107,7 @@ export class MenuComponent implements OnInit {
     };
 
     getProfile();
+    this.resetLocation();
   }
 
   generatePersonContent(type: string) {
@@ -114,6 +138,10 @@ export class MenuComponent implements OnInit {
 
   switchCustomProfessionDialog() {
     this.customProfessionDialog = !this.customProfessionDialog;
+  }
+
+  resetLocation() {
+    this.location.go("editor");
   }
 
 }

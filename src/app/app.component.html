@@ -1,15 +1,3 @@
 <app-menu />
-<p-card header="Person">
-  <app-person [person]="profile.person" />
-</p-card>
-<p-card header="Projects">
-  <app-projects [profile]="profile" />
-</p-card>
-<p-card header="Others">
-  <app-others [object]="profile" [editorEnabled]="true" />
-</p-card>
 
-<p-toast position="top-center"></p-toast>
-
-<loading-indicator />
-<app-api-key-dialog #apiKeyDialog />
+<router-outlet />

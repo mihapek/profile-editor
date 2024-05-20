@@ -9,9 +9,9 @@ import { ProfileItem } from './model/profile-item';
 })
 export class ProfileService {
   private profile$ = new BehaviorSubject<Profile>(new Profile);
-  selectedProfile$ = this.profile$.asObservable();
-  private allSkills$ = new BehaviorSubject<string[]>([]);
-  skills$ = this.allSkills$.asObservable();
+  profile = this.profile$.asObservable();
+  private skills$ = new BehaviorSubject<string[]>([]);
+  skills = this.skills$.asObservable();
   private personFoto$ = new BehaviorSubject<string>("");
   personFoto = this.personFoto$.asObservable();
 
@@ -33,7 +33,7 @@ export class ProfileService {
       })
     })
     skills = this.sortSkills(skills);
-    this.allSkills$.next(skills);
+    this.skills$.next(skills);
   }
 
   setPersonFoto(imageUrl: string) {
@@ -66,15 +66,15 @@ export class ProfileService {
   }
 
   addSkill(newSkill: string) {
-    let skills: string[] = this.allSkills$.getValue();
+    let skills: string[] = this.skills$.getValue();
     if (!skills.includes(newSkill)) {
       skills.push(newSkill);
       skills = this.sortSkills(skills);
-      this.allSkills$.next(skills);
+      this.skills$.next(skills);
     }
   }
 
-  sortSkills(skills: string[]): string[] {
+  private sortSkills(skills: string[]): string[] {
     return skills.sort((a, b) => {
       return a.toLowerCase().localeCompare(b.toLowerCase())
     });

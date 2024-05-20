@@ -8,6 +8,8 @@ import { OthersComponent } from '../others/others.component';
 import { CardModule } from 'primeng/card';
 import { ProfileService } from '../profile.service';
 import { UploadService } from '../upload.service';
+import { NgStyle } from '@angular/common';
+import { ChatService } from '../chat.service';
 
 @Component({
   selector: 'app-person',
@@ -17,15 +19,16 @@ import { UploadService } from '../upload.service';
     InputTextModule,
     CardModule,
     FormsModule,
-    OthersComponent
+    OthersComponent,
+    NgStyle
   ],
   templateUrl: './person.component.html',
-  styleUrl: './person.component.css'
+  styleUrl: './person.component.css',
 })
 export class PersonComponent implements OnInit {
 
   @Input() person: Person;
-  constructor(private profileService: ProfileService, private uploadService: UploadService) { }
+  constructor(private profileService: ProfileService, private uploadService: UploadService, private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.profileService.personFoto.subscribe(imageUrl => {
@@ -33,8 +36,26 @@ export class PersonComponent implements OnInit {
     })
   }
 
-  uploadFoto() {
-    this.uploadService.uploadFoto();
+  uploadFoto(event: any) {
+    this.uploadService.uploadFoto(event.target.files[0]);
+  }
+
+  makeAnimation() {
+    this.chatService.getAnimationStyle()?.subscribe(style => {
+      style = style.replaceAll("```css", "").replaceAll("```", "");
+      console.log(style);
+      let styleElement = document.createElement('style');
+      styleElement.id = 'genAnimation';
+      styleElement.innerHTML = style;
+      document.getElementsByTagName('head')[0].appendChild(styleElement);
+    });
+  }
+
+  stopAnimation() {
+    let styleElement = document.getElementById('genAnimation');
+    if (styleElement) {
+      styleElement.remove();
+    }
   }
 
 }

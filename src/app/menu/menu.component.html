@@ -14,3 +14,5 @@
 <p-dialog header="{{personDialogHeader}}" [(visible)]="personDialog" [style]="{width: '500px'}">
     <p style="white-space: pre-line">{{personDialogContent}}</p>
 </p-dialog>
+
+<input type="file" accept=".json" #profileUploader (change)="uploadProfile($event)" style="display: none;" />

@@ -74,12 +74,17 @@ export class MenuItems {
                 {
                     label: 'Open',
                     icon: 'pi pi-fw pi-folder-open',
-                    command: () => { this.menu.uploadProfile() }
+                    command: () => { this.menu.openProfile() }
                 },
                 {
                     label: 'Save',
                     icon: 'pi pi-fw pi-save',
                     command: () => { this.menu.saveProfile() }
+                },
+                {
+                    label: 'Download',
+                    icon: 'pi pi-fw pi-download',
+                    command: () => { this.menu.exportProfile() }
                 }
             ]
         }
