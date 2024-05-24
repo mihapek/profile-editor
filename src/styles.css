@@ -25,3 +25,7 @@ body {
 .p-menubar {
     background-color: aliceblue !important;
 }
+
+.p-editor-container {
+    max-width: 430px;
+}

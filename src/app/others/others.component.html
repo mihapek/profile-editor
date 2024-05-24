@@ -19,7 +19,7 @@
                 (onClick)="object.removeOther($index)" />
         </div>
         <p-editor *ngIf="showEditor" [(ngModel)]="item.value" />
-        <textarea pInputTextarea *ngIf="editorEnabled && !showEditor" cols="43" rows="5"
+        <textarea pInputTextarea *ngIf="editorEnabled && !showEditor" cols="44" rows="5"
             [(ngModel)]="item.value"></textarea>
         <input pInputText *ngIf="!editorEnabled" [(ngModel)]="item.value" size="30" />
         <p-button class="hidden sm:block" icon="pi pi-times" [text]="true" severity="warning"
