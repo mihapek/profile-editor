@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ProfileService } from '../profile.service';
+import { ProfileService } from '../services/profile.service';
 import { Project } from '../model/project';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';

@@ -6,10 +6,10 @@ import { FileSelectEvent, FileUploadEvent, FileUploadHandlerEvent, FileUploadMod
 import { FormsModule } from '@angular/forms';
 import { OthersComponent } from '../others/others.component';
 import { CardModule } from 'primeng/card';
-import { ProfileService } from '../profile.service';
-import { UploadService } from '../upload.service';
+import { ProfileService } from '../services/profile.service';
+import { UploadService } from '../services/upload.service';
 import { NgStyle } from '@angular/common';
-import { ChatService } from '../chat.service';
+import { ChatService } from '../services/chat.service';
 
 @Component({
   selector: 'app-person',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoadingService } from '../loading.service';
+import { LoadingService } from '../services/loading.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AsyncPipe } from '@angular/common';
 

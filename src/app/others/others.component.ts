@@ -7,7 +7,7 @@ import { EditorModule } from 'primeng/editor';
 import { HasOthers } from '../model/has-others';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuItem, MessageService } from 'primeng/api';
-import { ChatService } from '../chat.service';
+import { ChatService } from '../services/chat.service';
 import { ProfileItem } from '../model/profile-item';
 import { FocusOnShowDirective } from '../focusOnShowDerictive';
 import { DragDropModule } from 'primeng/dragdrop';

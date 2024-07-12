@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
-import { LanguageService } from '../language.service';
+import { LanguageService } from '../services/language.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
