@@ -5,27 +5,118 @@
 @import "primeflex/primeflex.css";
 @import "quill/dist/quill.snow.css";
 
+:root {
+  --primary-color: #2196F3;
+  --secondary-color: #64B5F6;
+  --accent-color: #1976D2;
+  --background-color: #F5F9FF;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 body {
-    max-width: 1200px;
-    margin: 0 auto;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--background-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .loading {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.skillButton button {
-    margin-right: 20px;
-    margin-bottom: 20px;
+.p-card {
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.p-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .p-menubar {
-    background-color: aliceblue !important;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+  border-radius: 12px !important;
+  margin-bottom: 2rem;
+  box-shadow: var(--card-shadow);
+}
+
+.p-menubar .p-menuitem-link {
+  color: white !important;
+}
+
+.p-menubar .p-menuitem-link:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.p-button {
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.p-button:hover {
+  transform: translateY(-1px);
+}
+
+.skillButton button {
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 20px;
+}
+
+.p-inputtext, .p-calendar, .p-editor-container {
+  border-radius: 8px !important;
 }
 
 .p-editor-container {
-    max-width: 420px;
+  max-width: 420px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.personFoto {
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s;
+}
+
+.personFoto:hover {
+  transform: scale(1.02);
+}
+
+.p-accordion .p-accordion-header-link {
+  border-radius: 8px;
+}
+
+.p-accordion .p-accordion-content {
+  padding: 1.5rem;
+}
+
+.p-dialog {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.p-dialog .p-dialog-header {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.p-toast .p-toast-message {
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+}
+
+.flex-column {
+  gap: 1rem;
+}
+
+.p-autocomplete-input {
+  width: 100%;
 }
