@@ -1,17 +1,15 @@
-<div class="flex flex-column gap-4 animate-fadeIn">
-  <p-card header="Person" styleClass="person-card">
-    <app-person [person]="profile.person" />
-  </p-card>
-  
-  <p-card header="Projects" styleClass="projects-card">
-    <app-projects [profile]="profile" />
-  </p-card>
-  
-  <p-card header="Others" styleClass="others-card">
-    <app-others [object]="profile" [editorEnabled]="true" />
-  </p-card>
+<div class="flex flex-column gap-2">
+    <p-card header="Person">
+        <app-person [person]="profile.person" />
+    </p-card>
+    <p-card header="Projects">
+        <app-projects [profile]="profile" />
+    </p-card>
+    <p-card header="Others">
+        <app-others [object]="profile" [editorEnabled]="true" />
+    </p-card>
 </div>
-
 <p-toast position="top-center"></p-toast>
+
 <loading-indicator />
 <app-api-key-dialog #apiKeyDialog />

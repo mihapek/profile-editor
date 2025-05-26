@@ -1,25 +1,22 @@
-<div class="flex gap-6 justify-content-between flex-wrap-reverse">
-  <div class="flex flex-column gap-4" style="flex: 1; min-width: 300px; max-width: 800px;">
-    <div class="flex flex-column gap-2">
-      <label for="name" class="text-lg font-semibold">Name</label>
-      <input id="name" type="text" pInputText [(ngModel)]="person.name" class="p-inputtext-lg" />
+<div class="flex gap-4 justify-content-between flex-wrap-reverse">
+    <div class=" flex flex-column gap-4" style="width: 800px;">
+        <div class="flex flex-column gap-2">
+            <label for="name">Name</label>
+            <input id="name" type="text" size="20" pInputText [(ngModel)]="person.name" />
+        </div>
+        <div class="flex flex-column gap-2">
+            <label for="moto">Moto</label>
+            <input id="moto" type="text" size="20" pInputText [(ngModel)]="person.motto" />
+        </div>
+        <p-card header="Additionals">
+            <app-others [object]="person" [editorEnabled]="false" />
+        </p-card>
     </div>
-    
-    <div class="flex flex-column gap-2">
-      <label for="motto" class="text-lg font-semibold">Motto</label>
-      <input id="motto" type="text" pInputText [(ngModel)]="person.motto" class="p-inputtext-lg" />
+    <div class="flex flex-column gap-2" style="padding-right: 20px;">
+        <p-button (onClick)="fotoUploader.click()" icon="pi pi-images" [rounded]="true" [outlined]="true"
+            class="ml-auto" />
+        <input type="file" accept="image/*" #fotoUploader (change)="uploadFoto($event)" style="display: none;" />
+        <img class="personFoto" src="{{person.foto}}" (dblclick)="makeAnimation()" (click)="stopAnimation()"
+            onerror="this.src='assets/default-foto.png'" />
     </div>
-    
-    <p-card header="Additional Information" styleClass="mt-4">
-      <app-others [object]="person" [editorEnabled]="false" />
-    </p-card>
-  </div>
-  
-  <div class="flex flex-column gap-3 align-items-center" style="min-width: 300px;">
-    <p-button (onClick)="fotoUploader.click()" icon="pi pi-camera" label="Change Photo" 
-      [rounded]="true" [outlined]="true" class="w-full" />
-    <input type="file" accept="image/*" #fotoUploader (change)="uploadFoto($event)" style="display: none;" />
-    <img class="personFoto w-full" [src]="person.foto" (dblclick)="makeAnimation()" (click)="stopAnimation()"
-      onerror="this.src='assets/default-foto.png'" alt="Profile Photo" />
-  </div>
 </div>
