@@ -63,8 +63,8 @@ export class ProfileEditorComponent implements OnInit, AfterViewInit {
         })
     }
     else {
-      // let profile: Profile = this.profileService.convertProfile(JSON.parse(JSON.stringify(profile_sample)));
-      // this.profileService.setProfile(plainToClass(Profile, profile));
+       let profile: Profile = this.profileService.convertProfile(JSON.parse(JSON.stringify(profile_sample)));
+       this.profileService.setProfile(plainToClass(Profile, profile));
     }
   }
 
